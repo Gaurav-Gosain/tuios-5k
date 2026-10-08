@@ -51,6 +51,7 @@ type Cell struct {
 	Fg   Color
 	Bg   Color
 	Attr uint8
+	Link string // an OSC 8 target, or empty
 }
 
 // Canvas is a grid of cells that renders to one ANSI string per frame.
@@ -94,6 +95,7 @@ func (c *Canvas) At(x, y int) *Cell {
 type Style struct {
 	Fg, Bg Color
 	Attr   uint8
+	Link   string
 }
 
 // Set writes one rune.
@@ -110,6 +112,7 @@ func (c *Canvas) Set(x, y int, r rune, st Style) {
 		cell.Bg = st.Bg
 	}
 	cell.Attr = st.Attr
+	cell.Link = st.Link
 }
 
 // Text writes s from x, y and returns the column after it.
@@ -135,11 +138,11 @@ func (c *Canvas) Fill(x, y, w, h int, bg Color) {
 	}
 }
 
-// Box draws a rounded border around a filled rectangle. A title sits in the
-// top edge, after one rule. The border cells keep the background under them,
-// so the line sits on the sky and the fill starts inside it.
+// Box draws a rounded border on a filled rectangle. The fill reaches under
+// the border too, so the line sits on the panel and no sky shows between the
+// line and the fill. A title sits in the top edge, after one rule.
 func (c *Canvas) Box(x, y, w, h int, border, fill Color, title string, titleSt Style) {
-	c.Fill(x+1, y+1, w-2, h-2, fill)
+	c.Fill(x, y, w, h, fill)
 	bs := Style{Fg: border}
 	for xx := x + 1; xx < x+w-1; xx++ {
 		c.Set(xx, y, '─', bs)
@@ -217,6 +220,22 @@ func (c *Canvas) Line(x0, y0, x1, y1 int, col Color) {
 	}
 }
 
+// ClearDots blanks the braille in cells [x0, x1) of row y, so text that sits
+// on the sky keeps a clear margin.
+func (c *Canvas) ClearDots(x0, x1, y int) {
+	for x := x0; x < x1; x++ {
+		if cell := c.At(x, y); cell != nil && (cell.R >= 0x2800 && cell.R <= 0x28FF || cell.R == '✦') {
+			cell.R = ' '
+		}
+	}
+}
+
+// SkyText writes text over the sky with a cell of clear sky either side.
+func (c *Canvas) SkyText(x, y int, s string, st Style) int {
+	c.ClearDots(x-1, x+TextWidth(s)+1, y)
+	return c.Text(x, y, s, st)
+}
+
 // Fade pulls every foreground in a rectangle toward a colour. It is how a
 // panel fades in: draw it whole, then fade what is not there yet.
 func (c *Canvas) Fade(x, y, w, h int, to Color, t float64) {
@@ -225,8 +244,13 @@ func (c *Canvas) Fade(x, y, w, h int, to Color, t float64) {
 	}
 	for yy := y; yy < y+h; yy++ {
 		for xx := x; xx < x+w; xx++ {
-			if cell := c.At(xx, yy); cell != nil && cell.Fg.Set {
-				cell.Fg = Mix(cell.Fg, to, t)
+			if cell := c.At(xx, yy); cell != nil {
+				if cell.Fg.Set {
+					cell.Fg = Mix(cell.Fg, to, t)
+				}
+				if cell.Bg.Set {
+					cell.Bg = Mix(cell.Bg, to, t)
+				}
 			}
 		}
 	}
@@ -239,14 +263,24 @@ func (c *Canvas) Render() string {
 	for y := 0; y < c.H; y++ {
 		var cur Cell
 		first := true
+		link := ""
 		for x := 0; x < c.W; x++ {
 			cell := c.cells[y*c.W+x]
+			if cell.Link != link {
+				b.WriteString("\x1b]8;;")
+				b.WriteString(cell.Link)
+				b.WriteString("\x1b\\")
+				link = cell.Link
+			}
 			if first || cell.Fg != cur.Fg || cell.Bg != cur.Bg || cell.Attr != cur.Attr {
 				writeSGR(&b, cell)
 				cur = cell
 				first = false
 			}
 			b.WriteRune(cell.R)
+		}
+		if link != "" {
+			b.WriteString("\x1b]8;;\x1b\\")
 		}
 		b.WriteString("\x1b[m")
 		if y < c.H-1 {

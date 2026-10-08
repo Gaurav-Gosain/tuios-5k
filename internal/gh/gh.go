@@ -19,6 +19,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -116,8 +117,10 @@ func IsBot(login, kind string) bool {
 
 // Client talks to the GitHub REST API.
 type Client struct {
-	HTTP  *http.Client
-	Token string // optional; the app never sets it
+	HTTP *http.Client
+	// Token is optional. The app sets it only from TUIOS_5K_TOKEN, for
+	// people who hit the hourly limit of 60 requests.
+	Token string
 }
 
 // ErrRateLimited reports that GitHub refused the request for the hour.
@@ -377,3 +380,75 @@ func mergeContributors(old, live []Contributor) []Contributor {
 	}
 	return out
 }
+
+// ErrNoUser reports that GitHub has no account with that login.
+var ErrNoUser = errors.New("no such github user")
+
+// FindStar looks for the day login starred the repo. It reads the user's
+// stars newest first and gives up after five pages of 100, or at the day the
+// repo was created. The first page comes alone, because most people find
+// their star there; the other four come together. It reports false when the
+// star is not there.
+func (c *Client) FindStar(ctx context.Context, login string, since time.Time) (time.Time, bool, error) {
+	type starred struct {
+		StarredAt time.Time `json:"starred_at"`
+		Repo      struct {
+			FullName string `json:"full_name"`
+		} `json:"repo"`
+	}
+	fetch := func(page int) ([]starred, error) {
+		var list []starred
+		url := fmt.Sprintf("https://api.github.com/users/%s/starred?sort=created&direction=desc&per_page=100&page=%d", login, page)
+		if _, err := c.get(ctx, url, starAccept, &list); err != nil {
+			if strings.Contains(err.Error(), " 404 ") {
+				return nil, ErrNoUser
+			}
+			return nil, err
+		}
+		return list, nil
+	}
+	// scan reports the star, whether to stop, in page order.
+	scan := func(list []starred) (time.Time, bool, bool) {
+		for _, s := range list {
+			if strings.EqualFold(s.Repo.FullName, Repo) {
+				return s.StarredAt, true, true
+			}
+			if s.StarredAt.Before(since) {
+				return time.Time{}, false, true
+			}
+		}
+		return time.Time{}, false, len(list) < 100
+	}
+	first, err := fetch(1)
+	if err != nil {
+		return time.Time{}, false, err
+	}
+	if at, ok, stop := scan(first); stop {
+		return at, ok, nil
+	}
+	const more = 4
+	pages := make([][]starred, more)
+	errs := make([]error, more)
+	var wg sync.WaitGroup
+	for k := range more {
+		wg.Go(func() { pages[k], errs[k] = fetch(k + 2) })
+	}
+	wg.Wait()
+	for k := range more {
+		if errs[k] != nil {
+			return time.Time{}, false, errs[k]
+		}
+		if at, ok, stop := scan(pages[k]); stop {
+			return at, ok, nil
+		}
+	}
+	return time.Time{}, false, nil
+}
+
+// ValidLogin reports whether s can be a GitHub login: letters, digits and
+// single hyphens, at most 39 characters.
+func ValidLogin(s string) bool {
+	return loginRe.MatchString(s) && len(s) <= 39
+}
+
+var loginRe = regexp.MustCompile(`^[A-Za-z0-9](?:[A-Za-z0-9]|-[A-Za-z0-9])*$`)
