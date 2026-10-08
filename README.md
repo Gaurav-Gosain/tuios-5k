@@ -51,7 +51,7 @@ the cursor. Run the program inside a tuios pane for a small extra.
 ## Find your star
 
 Press `f`, or start with `-me LOGIN`. The program reads your public list of
-starred repos from GitHub, newest first. It reads at most five pages of 100.
+starred repos from GitHub, newest first. It reads back page by page, 100 at a time, until it reaches the day tuios began. Without a token it reads at most 40 pages. If you starred more repos than that since September 2025, set `TUIOS_5K_TOKEN`.
 It takes the day you starred tuios and picks one dot from the stars of that
 day. The pick comes from your login, so it is the same dot on every run.
 

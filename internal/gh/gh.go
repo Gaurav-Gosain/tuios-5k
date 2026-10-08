@@ -396,16 +396,17 @@ func (c *Client) FindStar(ctx context.Context, login string, since time.Time) (t
 			FullName string `json:"full_name"`
 		} `json:"repo"`
 	}
-	fetch := func(page int) ([]starred, error) {
+	fetch := func(page int) ([]starred, http.Header, error) {
 		var list []starred
 		url := fmt.Sprintf("https://api.github.com/users/%s/starred?sort=created&direction=desc&per_page=100&page=%d", login, page)
-		if _, err := c.get(ctx, url, starAccept, &list); err != nil {
+		h, err := c.get(ctx, url, starAccept, &list)
+		if err != nil {
 			if strings.Contains(err.Error(), " 404 ") {
-				return nil, ErrNoUser
+				return nil, nil, ErrNoUser
 			}
-			return nil, err
+			return nil, nil, err
 		}
-		return list, nil
+		return list, h, nil
 	}
 	// scan reports the star, whether to stop, in page order.
 	scan := func(list []starred) (time.Time, bool, bool) {
@@ -419,30 +420,69 @@ func (c *Client) FindStar(ctx context.Context, login string, since time.Time) (t
 		}
 		return time.Time{}, false, len(list) < 100
 	}
-	first, err := fetch(1)
+	first, h, err := fetch(1)
 	if err != nil {
 		return time.Time{}, false, err
 	}
 	if at, ok, stop := scan(first); stop {
 		return at, ok, nil
 	}
-	const more = 4
-	pages := make([][]starred, more)
-	errs := make([]error, more)
-	var wg sync.WaitGroup
-	for k := range more {
-		wg.Go(func() { pages[k], errs[k] = fetch(k + 2) })
+	// The list is newest first, so every page down to the one that reaches
+	// back past the repo's creation can hold the star. Someone who stars a
+	// lot can be many pages deep: read them in small batches, in order, and
+	// stop at the first page that answers.
+	last := linkLast(h)
+	limit := maxStarPages
+	if c.Token != "" {
+		limit = maxStarPagesToken
 	}
-	wg.Wait()
-	for k := range more {
-		if errs[k] != nil {
-			return time.Time{}, false, errs[k]
+	if last == 0 || last > limit {
+		last = limit
+	}
+	const batch = 6
+	for from := 2; from <= last; from += batch {
+		n := min(batch, last-from+1)
+		pages := make([][]starred, n)
+		errs := make([]error, n)
+		var wg sync.WaitGroup
+		for k := range n {
+			wg.Go(func() { pages[k], _, errs[k] = fetch(from + k) })
 		}
-		if at, ok, stop := scan(pages[k]); stop {
-			return at, ok, nil
+		wg.Wait()
+		for k := range n {
+			if errs[k] != nil {
+				return time.Time{}, false, errs[k]
+			}
+			if at, ok, stop := scan(pages[k]); stop {
+				return at, ok, nil
+			}
 		}
+	}
+	if lp := linkLast(h); lp > limit {
+		return time.Time{}, false, ErrTooManyStars
 	}
 	return time.Time{}, false, nil
+}
+
+// maxStarPages bounds how deep FindStar reads without a token, in pages of
+// 100. GitHub allows 60 requests an hour without one.
+const (
+	maxStarPages      = 40
+	maxStarPagesToken = 300
+)
+
+// ErrTooManyStars reports that the user has starred more repos since tuios
+// began than FindStar reads without a token.
+var ErrTooManyStars = errors.New("too many starred repos to read without a token")
+
+// linkLast reads the page number of rel="last" from a Link header, or 0.
+func linkLast(h http.Header) int {
+	if m := lastPage.FindStringSubmatch(h.Get("Link")); m != nil {
+		if n, err := strconv.Atoi(m[1]); err == nil {
+			return n
+		}
+	}
+	return 0
 }
 
 // ValidLogin reports whether s can be a GitHub login: letters, digits and

@@ -606,6 +606,8 @@ func (m *Model) found(msg findMsg) {
 			m.findNote = "github has no user " + msg.login + "."
 		case errors.Is(msg.err, gh.ErrRateLimited):
 			m.findNote = "github says wait an hour. try again later."
+		case errors.Is(msg.err, gh.ErrTooManyStars):
+			m.findNote = msg.login + " starred too many repos to search. set TUIOS_5K_TOKEN and try again."
 		default:
 			m.findNote = "github did not answer. try again later."
 		}
