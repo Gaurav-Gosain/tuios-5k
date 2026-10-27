@@ -26,7 +26,9 @@ jobs:
           go-version-file: go.mod
       - name: Take a new snapshot
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The Actions token is refused on another repo's stargazers, so the
+          # snapshot reads them with a read-only token kept as SNAPSHOT_TOKEN.
+          GITHUB_TOKEN: ${{ secrets.SNAPSHOT_TOKEN }}
         run: |
           go run ./cmd/snapshot > snapshot.new.json
           # A failed or empty run must never replace the snapshot.
