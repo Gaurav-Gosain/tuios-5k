@@ -3,9 +3,10 @@
 # the snapshot changed.
 name: snapshot
 
+# The daily refresh runs on the maintainer's machine with their gh login (a
+# GitHub Actions token cannot read another repo's stargazers). This stays for
+# a manual run once a SNAPSHOT_TOKEN secret exists.
 on:
-  schedule:
-    - cron: "17 3 * * *"
   workflow_dispatch:
 
 permissions:
