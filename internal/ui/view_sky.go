@@ -156,7 +156,7 @@ func (m *Model) drawYouLine(c *Canvas, x, w, y int) {
 		{" · ", Style{Fg: Mix(cPanel, cDim, a)}},
 		{date(m.day(m.youDay)), tx},
 		{" · ", Style{Fg: Mix(cPanel, cDim, a)}},
-		{"star ≈ ", mu},
+		{map[bool]string{true: "star ", false: "star ≈ "}[m.youExact], mu},
 		{"#" + thousands(m.youIdx+1), Style{Fg: Mix(cPanel, cGoldHi, a), Attr: attrBold}},
 	}
 	if m.youOf > 1 {

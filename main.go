@@ -49,13 +49,17 @@ func main() {
 
 // farewell leaves one line in the scrollback after the alt screen closes.
 func farewell(m *ui.Model) {
-	stars, you := m.Farewell()
+	stars, you, exact := m.Farewell()
 	gold := lipgloss.NewStyle().Foreground(lipgloss.Color("#f4cf86"))
 	muted := lipgloss.NewStyle().Foreground(lipgloss.Color("#7d86a8"))
 	bold := lipgloss.NewStyle().Bold(true)
 	line := gold.Render("✦") + " " + bold.Render(ui.Thousands(stars)) + " people starred tuios"
 	if you > 0 {
-		line += ", and you are star " + gold.Render("≈ #"+ui.Thousands(you))
+		mark := "≈ #"
+		if exact {
+			mark = "#"
+		}
+		line += ", and you are star " + gold.Render(mark+ui.Thousands(you))
 	}
 	line += ". thank you.  " + muted.Render("github.com/Gaurav-Gosain/tuios")
 	lipgloss.Println(line)

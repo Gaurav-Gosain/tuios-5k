@@ -28,8 +28,15 @@ const Repo = "Gaurav-Gosain/tuios"
 
 const dayLayout = "2006-01-02"
 
+// Star is one stargazer: the login and the time they starred. Stargazer
+// lists are public on GitHub.
+type Star struct {
+	Login string    `json:"login"`
+	At    time.Time `json:"at"`
+}
+
 // Contributor is one human who has commits in the repo. Logins are public
-// credit, so they are shown. Stargazer logins are never stored.
+// credit, so they are shown.
 type Contributor struct {
 	Login   string `json:"login"`
 	Commits int    `json:"commits"`
@@ -47,7 +54,10 @@ type Data struct {
 	// Start is the first day of Daily, YYYY-MM-DD.
 	Start string `json:"start"`
 	// Daily holds the number of stars given on each day from Start on.
-	Daily        []int         `json:"daily"`
+	Daily []int `json:"daily"`
+	// Stargazers lists everyone who starred, in starring order. Star i of
+	// the sky is Stargazers[i]. Older snapshots have no list.
+	Stargazers   []Star        `json:"stargazers,omitempty"`
 	Contributors []Contributor `json:"contributors"`
 }
 
@@ -67,8 +77,20 @@ func Parse(b []byte) (*Data, error) {
 func (d *Data) Clone() *Data {
 	c := *d
 	c.Daily = slices.Clone(d.Daily)
+	c.Stargazers = slices.Clone(d.Stargazers)
 	c.Contributors = slices.Clone(d.Contributors)
 	return &c
+}
+
+// StarIndex finds a login in the stargazer list, ignoring case. It reports
+// the position in starring order and the star.
+func (d *Data) StarIndex(login string) (int, Star, bool) {
+	for i, s := range d.Stargazers {
+		if strings.EqualFold(s.Login, login) {
+			return i, s, true
+		}
+	}
+	return -1, Star{}, false
 }
 
 // StartDay is Start as a time at midnight UTC.
@@ -97,8 +119,13 @@ func (d *Data) Cumulative() []int {
 	return out
 }
 
-// AddStar counts one star on the day of t.
-func (d *Data) AddStar(t time.Time) {
+// AddStar counts one star on the day of t and records who gave it.
+func (d *Data) AddStar(s Star) {
+	d.Stargazers = append(d.Stargazers, s)
+	d.addDay(s.At)
+}
+
+func (d *Data) addDay(t time.Time) {
 	start := d.StartDay()
 	day := int(t.UTC().Sub(start).Hours() / 24)
 	if day < 0 {
@@ -184,6 +211,9 @@ type rawContributor struct {
 
 type rawStar struct {
 	StarredAt time.Time `json:"starred_at"`
+	User      struct {
+		Login string `json:"login"`
+	} `json:"user"`
 }
 
 const starAccept = "application/vnd.github.star+json"
@@ -217,17 +247,16 @@ func (c *Client) Contributors(ctx context.Context) ([]Contributor, error) {
 	return out, nil
 }
 
-// StarPage fetches one page of 100 stargazers, oldest first. Only the times
-// are kept.
-func (c *Client) StarPage(ctx context.Context, page int) ([]time.Time, error) {
+// StarPage fetches one page of 100 stargazers, oldest first.
+func (c *Client) StarPage(ctx context.Context, page int) ([]Star, error) {
 	var raw []rawStar
 	url := fmt.Sprintf("%s/stargazers?per_page=100&page=%d", api, page)
 	if _, err := c.get(ctx, url, starAccept, &raw); err != nil {
 		return nil, err
 	}
-	out := make([]time.Time, len(raw))
+	out := make([]Star, len(raw))
 	for i, r := range raw {
-		out[i] = r.StarredAt
+		out[i] = Star{Login: r.User.Login, At: r.StarredAt.UTC()}
 	}
 	return out, nil
 }
@@ -282,8 +311,8 @@ func (c *Client) Snapshot(ctx context.Context) (*Data, error) {
 		if err != nil {
 			return nil, err
 		}
-		for _, t := range ts {
-			d.AddStar(t)
+		for _, st := range ts {
+			d.AddStar(st)
 		}
 		fmt.Fprintf(os.Stderr, "stargazers page %d: %d\n", page, len(ts))
 		if len(ts) < 100 {
@@ -325,6 +354,9 @@ func (c *Client) Refresh(ctx context.Context, snap *Data) (*Data, error) {
 	}
 
 	listed := d.Listed()
+	// Names are kept only when the list lines up with the history, as it
+	// does in a snapshot that has names.
+	named := len(d.Stargazers) == listed
 	if r.Stars <= listed {
 		return d, nil
 	}
@@ -345,9 +377,13 @@ func (c *Client) Refresh(ctx context.Context, snap *Data) (*Data, error) {
 		if page == first {
 			skip = listed - (page-1)*100
 		}
-		for i, t := range ts {
-			if i >= skip {
-				d.AddStar(t)
+		for i, st := range ts {
+			switch {
+			case i < skip:
+			case named:
+				d.AddStar(st)
+			default:
+				d.addDay(st.At)
 			}
 		}
 	}

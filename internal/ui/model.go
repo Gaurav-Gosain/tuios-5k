@@ -137,7 +137,12 @@ type Model struct {
 	youDay   int
 	youIdx   int
 	youOf    int
+	youExact bool // youIdx comes from the stargazer list
 	findNote string
+
+	// pick is the star a click chose in the sky, or -1.
+	pick   int
+	pickAt float64
 }
 
 // New builds the model.
@@ -162,6 +167,7 @@ func New(o Options) *Model {
 		input:   ti,
 		pendMe:  o.Me,
 		youIdx:  -1,
+		pick:    -1,
 	}
 	m.setData(o.Snapshot)
 	if o.Offline {
@@ -194,6 +200,9 @@ type findMsg struct {
 	at    time.Time
 	found bool
 	err   error
+	// idx is the exact place in starring order when the stargazer list
+	// answered, or -1 when the place is a guess.
+	idx int
 }
 
 func tick(fps int) tea.Cmd {
@@ -220,7 +229,7 @@ func (m *Model) findCmd(login string) tea.Cmd {
 		ctx, cancel := context.WithTimeout(context.Background(), 25*time.Second)
 		defer cancel()
 		at, ok, err := client().FindStar(ctx, login, since)
-		return findMsg{login, at, ok, err}
+		return findMsg{login, at, ok, err, -1}
 	}
 }
 
@@ -580,13 +589,25 @@ func (m *Model) submit(login string) tea.Cmd {
 	m.input.Blur()
 	m.me = login
 	m.findAt = m.t
-	if m.offline {
-		m.find = findFailed
-		m.findNote = "find needs github. run it without -offline."
-		return nil
+	m.findNote = ""
+	// The stargazer list answers at once and exactly. Live data has the
+	// newest names, so it is the list when GitHub answered.
+	if i, st, ok := m.data.StarIndex(login); ok {
+		m.find = findLoading
+		return func() tea.Msg { return findMsg{login, st.At, true, nil, i} }
+	}
+	if m.offline || m.conn == "offline" {
+		if len(m.data.Stargazers) > 0 {
+			m.find = findLoading
+			return func() tea.Msg { return findMsg{login, time.Time{}, false, nil, -1} }
+		}
+		if m.offline {
+			m.find = findFailed
+			m.findNote = "find needs github. run it without -offline."
+			return nil
+		}
 	}
 	m.find = findLoading
-	m.findNote = ""
 	return m.findCmd(login)
 }
 
@@ -626,7 +647,14 @@ func (m *Model) found(msg findMsg) {
 	h := fnv.New32a()
 	h.Write([]byte(strings.ToLower(msg.login)))
 	n := len(m.cum)
+	m.youExact = msg.idx >= 0
 	switch {
+	case msg.idx >= 0:
+		m.youIdx = msg.idx
+		m.youOf = 0
+		if day < n {
+			m.youOf = m.data.Daily[day]
+		}
 	case day < n && m.data.Daily[day] > 0:
 		prev := 0
 		if day > 0 {
@@ -786,6 +814,8 @@ func (m *Model) click(x, y int, b tea.MouseButton) {
 		}
 	case vHistory:
 		m.drag(x, y)
+	case vSky:
+		m.pickStar(x, y)
 	}
 }
 
@@ -814,12 +844,12 @@ func (m *Model) View() tea.View {
 }
 
 // Farewell is the line the program leaves in the scrollback when it quits.
-func (m *Model) Farewell() (stars int, you int) {
+func (m *Model) Farewell() (stars int, you int, exact bool) {
 	you = -1
 	if m.find == findFound {
 		you = m.youIdx + 1
 	}
-	return m.data.Stars, you
+	return m.data.Stars, you, m.youExact
 }
 
 func (m *Model) render() string {
@@ -839,6 +869,9 @@ func (m *Model) render() string {
 	}
 	if m.view == vSky && hits.you[0] >= 0 {
 		m.labelYou(c, hits.you)
+	}
+	if m.view == vSky {
+		m.labelPick(c, c.W*2, c.H*4)
 	}
 	m.drawHeader(c)
 	m.drawFooter(c)
@@ -1080,6 +1113,7 @@ func (m *Model) drawHelp(c *Canvas) {
 		{"1  2  3  4", "sky, history, crew, thanks"},
 		{"space", "send a shooting star"},
 		{"f", "find your own star"},
+		{"click", "name a star in the sky"},
 		{"← →", "scrub the history, walk the crew"},
 		{"⇧← ⇧→", "move a week in the history"},
 		{"[  ]", "jump between marks"},
@@ -1139,4 +1173,61 @@ func (m *Model) contributors() int { return len(m.crew) }
 // center writes s centred in [x, x+w).
 func center(c *Canvas, x, w, y int, s string, st Style) {
 	c.Text(x+(w-TextWidth(s))/2, y, s, st)
+}
+
+// pickStar names the star nearest to a click in the sky, when the data has
+// names. A click on the card or on empty sky clears the label.
+func (m *Model) pickStar(x, y int) {
+	m.pick = -1
+	if len(m.data.Stargazers) == 0 || m.w == 0 || y < 1 || y > m.h-3 {
+		return
+	}
+	cx, cy, cw, ch := m.skyCardRect()
+	if x >= cx && x < cx+cw && y >= cy && y < cy+ch {
+		return
+	}
+	cam := m.sky.camAt2(m.t)
+	wd, hd := m.w*2, m.h*4
+	keep := m.sky.keep(wd, hd)
+	best, bd := -1, 4.0
+	n := min(m.shown(), len(m.sky.stars), len(m.data.Stargazers))
+	for i := range n {
+		if !m.sky.drawn(i, keep) {
+			continue
+		}
+		px, py := m.sky.pos(i, cam, wd, hd)
+		d := math.Hypot(float64(x)-float64(int(px)/2), (float64(y)-float64(int(py)/4))*2)
+		if d < bd {
+			best, bd = i, d
+		}
+	}
+	if best >= 0 {
+		m.pick = best
+		m.pickAt = m.t
+	}
+}
+
+// labelPick writes the login of the picked star beside it.
+func (m *Model) labelPick(c *Canvas, wd, hd int) {
+	if m.pick < 0 || m.pick >= len(m.data.Stargazers) || m.pick >= len(m.sky.stars) {
+		return
+	}
+	px, py := m.sky.pos(m.pick, m.sky.camAt2(m.t), wd, hd)
+	sx, sy := int(px)/2, int(py)/4
+	if sy < 1 || sy > m.h-2 {
+		return
+	}
+	st := m.data.Stargazers[m.pick]
+	if cell := c.At(sx, sy); cell != nil {
+		cell.R = '✦'
+		cell.Fg = cGoldHi
+		cell.Attr = attrBold
+	}
+	label := st.Login
+	style := Style{Fg: cGold, Attr: attrBold, Link: "https://github.com/" + st.Login}
+	if sx+TextWidth(label)+3 < m.w {
+		c.SkyText(sx+2, sy, label, style)
+	} else {
+		c.SkyText(sx-TextWidth(label)-2, sy, label, style)
+	}
 }

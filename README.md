@@ -50,13 +50,15 @@ the cursor. Run the program inside a tuios pane for a small extra.
 
 ## Find your star
 
-Press `f`, or start with `-me LOGIN`. The program reads your public list of
+Press `f`, or start with `-me LOGIN`. The program first looks for the login
+in the list of stargazers. This works offline and gives the exact place. If the
+login is not in the list, the program reads your public list of
 starred repos from GitHub, newest first. It reads back page by page, 100 at a time, until it reaches the day tuios began. Without a token it reads at most 40 pages. If you starred more repos than that since September 2025, set `TUIOS_5K_TOKEN`.
 It takes the day you starred tuios and picks one dot from the stars of that
 day. The pick comes from your login, so it is the same dot on every run.
 
-The program shows only the login that you type. It never shows the names of
-other stargazers.
+Click a star in the sky to see the login of the person who gave it. The
+logins come from the snapshot, or from GitHub when it answers.
 
 ## Data
 
@@ -65,9 +67,11 @@ the contributors. It does not need a token. Bots are not shown.
 
 GitHub asks for a token to list stargazers with dates. So the star history
 comes from a snapshot in `data/snapshot.json`, which is built into the
-binary. The snapshot holds the number of stars for each day and no names. When
-GitHub cannot be reached, everything comes from the snapshot, and the status
-bar shows "offline snapshot" and the date of the snapshot.
+binary. The snapshot holds the login of each stargazer and the time they
+starred, in the order they starred, and the number of stars for each day. Stargazer
+lists are public on GitHub. When GitHub cannot be reached, everything comes
+from the snapshot, including the names and `-me`, and the status bar shows
+"offline snapshot" and the date of the snapshot.
 
 GitHub allows 60 requests an hour without a token. If you reach that limit,
 set `TUIOS_5K_TOKEN` to a GitHub token.

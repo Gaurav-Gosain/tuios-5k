@@ -318,6 +318,17 @@ func (s *sky) camFor(i int, x float64, wd int, near float64) float64 {
 	return base + k*period
 }
 
+// keep is the share of faint stars that get a dot on a screen wd by hd dots.
+func (s *sky) keep(wd, hd int) float64 {
+	return math.Min(1, 0.06*float64(wd*hd)/float64(max(1, len(s.stars))))
+}
+
+// drawn reports whether star i gets a dot at all, given keep.
+func (s *sky) drawn(i int, keep float64) bool {
+	st := &s.stars[i]
+	return st.marker || st.b >= 0.3 || float64(splitmix(uint64(i)+7)%1000)/1000 < keep
+}
+
 // draw paints the sky. Rows 0 and h-1 belong to the chrome, so the sky
 // stays out of them.
 func (s *sky) draw(c *Canvas, o skyOpts) skyHits {
@@ -336,7 +347,7 @@ func (s *sky) draw(c *Canvas, o skyOpts) skyHits {
 	// On a small terminal five thousand stars crowd into a few thousand
 	// cells. Thin out the faint ones there: every dot is still one person,
 	// though not every person gets a dot.
-	keep := math.Min(1, 0.06*float64(wd*hd)/float64(max(1, len(s.stars))))
+	keep := s.keep(wd, hd)
 	// One dot per cell, or per two cells on a narrow screen: a cell with
 	// three dots in it reads as static. The brightest star wins the cell.
 	pair := 1
@@ -357,7 +368,7 @@ func (s *sky) draw(c *Canvas, o skyOpts) skyHits {
 		if i == s.you {
 			continue
 		}
-		if !st.marker && st.b < 0.3 && float64(splitmix(uint64(i)+7)%1000)/1000 >= keep {
+		if !s.drawn(i, keep) {
 			continue
 		}
 		x, y := s.pos(i, cam, wd, hd)
