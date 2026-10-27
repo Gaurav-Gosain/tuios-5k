@@ -1,0 +1,1770 @@
+{
+  "repo": "Gaurav-Gosain/tuios",
+  "taken": "2026-10-27",
+  "note": "Counts of people per company, from the company field people set on their own GitHub profile. No logins are kept. A star or a commit does not mean the company uses tuios. The three columns come from different sources and overlap, so do not add them up.",
+  "sources": {
+    "ossinsight_top50": "OSS Insight /q/analyze-stars-company, top 50 only (the API caps the limit at 50). Covers about 3,670 of the 6,126 stargazers.",
+    "gharchive_profiles": "WatchEvent logins from the GH Archive copy on play.clickhouse.com (1,101 stargazers, thin after May 2026), with the company read from each profile today.",
+    "contributors": "The contributors in data/snapshot.json, with the company read from each profile today."
+  },
+  "companies": [
+    {
+      "company": "Microsoft",
+      "ossinsight_top50": 6,
+      "gharchive_profiles": 2,
+      "contributors": 0
+    },
+    {
+      "company": "Google",
+      "ossinsight_top50": 3,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Reddit",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "USTC",
+      "ossinsight_top50": 3,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Ad Hoc LLC",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 2,
+      "contributors": 0
+    },
+    {
+      "company": "Aircall",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Alibaba",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ByteDance",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 2,
+      "contributors": 0
+    },
+    {
+      "company": "Envato",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 1
+    },
+    {
+      "company": "Harbin Institute of Technology",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 2,
+      "contributors": 0
+    },
+    {
+      "company": "IBM",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 2,
+      "contributors": 0
+    },
+    {
+      "company": "Ingka Group Digital (IKEA)",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Meituan",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 2,
+      "contributors": 0
+    },
+    {
+      "company": "MIT",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 2,
+      "contributors": 0
+    },
+    {
+      "company": "ODeX Global",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 1
+    },
+    {
+      "company": "Oracle",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Red Hat",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 1
+    },
+    {
+      "company": "SAP",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Tata Consultancy Services",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Tencent",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ThoughtWorks",
+      "ossinsight_top50": 2,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Zendesk",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 2
+    },
+    {
+      "company": "0xabadbabe-labs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "0xFD0E948816D7FF43",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "10x Velocity",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "42 Tokyo",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "42Paris",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "A-V Services Inc.",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "acao-da-cidadania",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Achievemore",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ADESTIS GmbH",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "akalforge",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Aliyssium",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Altinity",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Alwinen GmbH",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Amazon (Zappos / Shopbop)",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "ambiosDSP",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Ant Group",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Arrival Ltd",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Artrinix Labs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "asymmetric-research",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Asynkron AB",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Athome Solution",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Avanade",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Beijing University of Posts and Telecommunications",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Beumer Group",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Bhramm Technologies",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "bilibili大学",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "binarly-io",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Bit Dynamics AB",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "bluefeet-io",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "Boursorama",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "BSUIR",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Bucket o' Software",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CallZ Telecom",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Calmedica",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CanaryCoders SLU.",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "catho",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "CaviesLabs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CCI",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CD24",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ChinaTelecom,MeiTuan,Bosch",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Chinese University of Hong Kong (Shenzhen)",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CI4 Consulting Ltd",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "clerk",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CloudPractice",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "clovefi",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CodaClave",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "coding-and-typing",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "Continue",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "coopTilleuls",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "coparse",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Cosmos64",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "Coverbase",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Creditas",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Criteo",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CTO",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "CyberAgent",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "cycraft-corp",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "DataFlows",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Datyra",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "delegator",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Delfos Energy",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Devellp",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Developer Avocados",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "devlyft",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "DEX",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "dezent-music",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "dignio",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Discogs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "dmarcguardhq",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "DMT",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "DNXLabs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "drdropin-tech",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Duke University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "dwarvesf",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Easy-Cloud",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "eland-io",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Elementrailer",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "elevasoft",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Elva Örebro",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "enron",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "EPAM",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "EPFL - LTPN",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Epic Games",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "eSpark",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ettio.com",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "fntsoftware",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Founder",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "FyraLabs",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Galbot",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Galvanize",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "GameStudioHx",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "GE Healthcare",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "GEEX",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "generaltranslation",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "GitHub",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "gnu.re",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "GraphAI",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "Hackerone",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Handl Health",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Harbin Engineering University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "HEIRLabs",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Hetzner",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "hiifong",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "hosted-status-page",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "http://ifto.edu.br",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "http://instytutxr.tk/",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "https://github.com/kopererp",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Huazhong Univ. of Science & Technology",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "iCondo",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "IFNMG Januária",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "IFPI",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Ifrinnitive",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "increments",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Indian Institute of Science",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Instituto Atlântico Fortaleza",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Intelligent-Internet",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "INTM-Group",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "inventor-Design-Studio",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Johns Hopkins University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "JunioraTeam",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Kabeers Network",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "KeiranLabs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "kernelx-ai",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Kiz8",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "KMS Technology",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Kollarna.se",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "kxki-dev",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "lambdatest",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "licenseware",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "LIGA",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "lilacstudio",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "linehaul-ai",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "lingokids",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "loglass",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "longbridge",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "looqbox",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Machines Are Friendly",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "manao tech",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Manley.org",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "MercadoLibre",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Meta",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "miHoYo",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "mkitdev",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "MRI NASA",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Namal University, Mianwali",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "National Institute for Space Research",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "National Tsing Hua University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Neomantra Corp",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "net2phone",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "new-gen-eng",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "newcom",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "niko",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Ningbo, China",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Nualogic",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ohmybugs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Omniaevo",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Open Targets",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Open-Lab-Instruments",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Opendream Co., Ltd.",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "OPSWAT",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Orkestia",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ORNL",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Osmosis.ai",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Outfitter.dev",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "OVHcloud",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "owncloud",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Paper-Crane-Media",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Pasture",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "PayNearMe",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "paytient",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "PhonePe",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "PHP,Web,Mobile,Linux,AI",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Pixel Dev Factory",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Pixis.ai | x-Juspay",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "platacard",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "playmoweb",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "plexinc",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "PlexTrac",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "port-labs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Purdue University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "PyMC Labs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "qiscus",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Qwadra",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "RaySearch Laboratories",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "RBI Group",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "RealPage",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "RedHorse-Corp",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "RelicX",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Revera Innovations",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "RIKEN / UTokyo",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Ripple",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "Rocky's Labs",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "runta-dev",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "SACO Technologies",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "SBA Research",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "SBMS, LKS Faculty of Medicine, HKU",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Scaletronic",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Scraft",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "SDU University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "semicentric",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Shadow Company ✱",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "shanghaitech university",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Shimen Experimental School",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Shopify",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "Signoz",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "SMILEUPPS-F091BA1E67",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "snapp-incubator",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "sourcelevel",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Southwest Petroleum University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "SSAI/GMAO",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "SSSTA",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "StateCert",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "stemn",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "SWE",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Switchbox, Inc.",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Taiwan Semiconductor Manufacturing Company",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "TDDC",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Technische Universität Wien",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "TechTutorialsHub.com",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "teligen",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Terminal Root",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "The Natural Capital Project, Stanford University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "The NetCircle",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "The Origami Corporation",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ThinkportRepo",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "thisisartium",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Tianjin University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Tidemark",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "tomorrow-one",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "TOTVS",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "Tracify-ai",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "TrendyTravelers",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "TRVS",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Tsinghua University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "turnhub",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "TWIN24.ai",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "UESTC -> NUS -> AMD intern -> unemployed 😶‍🌫️",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "UIUC",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Uniasselvi",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Unite-AS",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "University of Chicago",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "University of Electronic Science and Technology of China",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "University of Minnesota",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "University of Stuttgart",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "UoS",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "USTC/ADSL",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ustclug",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Vast",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "VinFast",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Vitru Educação",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "VML MAP",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "vocdoni",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "vulncheck",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "WagnerSolutionsAI",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 0,
+      "contributors": 1
+    },
+    {
+      "company": "wantedly",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Waseda University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Washington University School of Medicine",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Wingie Enuygun",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "WiseDigitalStudio",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "WOLF Consulting",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "wrenchcloud",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "xn-02f",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Yandex",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "youkale",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "yumemi-inc",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Zapier",
+      "ossinsight_top50": 1,
+      "gharchive_profiles": 0,
+      "contributors": 0
+    },
+    {
+      "company": "Zattoo",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Zhejiang University",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ZJUT",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "Zomato",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    },
+    {
+      "company": "ZovHook LTD",
+      "ossinsight_top50": 0,
+      "gharchive_profiles": 1,
+      "contributors": 0
+    }
+  ]
+}
