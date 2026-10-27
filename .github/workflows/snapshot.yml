@@ -1,0 +1,50 @@
+# Refreshes data/snapshot.json once a day: the star and fork counts, stars per
+# day and the contributors the offline sky is drawn from. It commits only when
+# the snapshot changed.
+name: snapshot
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Take a new snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          go run ./cmd/snapshot > snapshot.new.json
+          # A failed or empty run must never replace the snapshot.
+          python3 -c "import json,sys; d=json.load(open('snapshot.new.json')); assert d['stars'] > 0 and d['daily']"
+          mv snapshot.new.json data/snapshot.json
+          go build ./...
+      - name: Commit when it changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- data/snapshot.json; then
+            echo "snapshot unchanged"
+            exit 0
+          fi
+          # The contents API commits as the Actions bot, so no git identity
+          # is set here.
+          sha=$(gh api "repos/${GITHUB_REPOSITORY}/contents/data/snapshot.json?ref=${GITHUB_REF_NAME}" --jq .sha)
+          gh api -X PUT "repos/${GITHUB_REPOSITORY}/contents/data/snapshot.json" \
+            -f message="data: refresh the snapshot" \
+            -f content="$(base64 -w0 data/snapshot.json)" \
+            -f sha="$sha" -f branch="${GITHUB_REF_NAME}" --jq .commit.sha
