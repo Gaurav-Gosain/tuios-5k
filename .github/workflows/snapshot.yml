@@ -45,8 +45,10 @@ jobs:
           fi
           # The contents API commits as the Actions bot, so no git identity
           # is set here.
+          # The file is far over the 128 KiB a single argument may hold, so
+          # the request body goes in through a file.
           sha=$(gh api "repos/${GITHUB_REPOSITORY}/contents/data/snapshot.json?ref=${GITHUB_REF_NAME}" --jq .sha)
-          gh api -X PUT "repos/${GITHUB_REPOSITORY}/contents/data/snapshot.json" \
-            -f message="data: refresh the snapshot" \
-            -f content="$(base64 -w0 data/snapshot.json)" \
-            -f sha="$sha" -f branch="${GITHUB_REF_NAME}" --jq .commit.sha
+          jq -n --arg sha "$sha" --arg branch "${GITHUB_REF_NAME}" \
+            --rawfile raw data/snapshot.json \
+            '{message: "data: refresh the snapshot", sha: $sha, branch: $branch, content: ($raw | @base64)}' > body.json
+          gh api -X PUT "repos/${GITHUB_REPOSITORY}/contents/data/snapshot.json" --input body.json --jq .commit.sha
